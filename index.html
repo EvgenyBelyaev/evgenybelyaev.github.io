@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма для создания поста</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Подключение стилей Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-md mx-auto bg-white p-6 rounded shadow-lg ">
+            <h1 class="text-2xl font-semibold mb-4 text-center">Создать пост</h1>
+                <div class="mb-4">
+                    <!-- Image Selector -->
+                    <div id="images-container" class="mb-4"> <!-- Image container will be here -->
+                        <!-- Images will be inserted here -->
+                    </div>
+                    <div class="flex justify-center mb-4">
+                        
+                        <div id="multi-upload-button" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-gray-600 rounded-l font-semibold cursor-pointer text-sm text-white tracking-widest hover:bg-gray-500 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                            Выбрать изображение
+                        </div>
+                        <div class="border border-gray-300 rounded-r-md flex items-center justify-between">
+                            <span id="multi-upload-text" class="p-2"></span>
+                            <button id="multi-upload-delete" class="hidden" onclick="removeMultiUpload()">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-red-700 w-3 h-3"
+                                    viewBox="0 0 320 512">
+                                    <path
+                                            d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="file" id="multi-upload-input"  accept="image/*" class="hidden" multiple/>
+                    
+                    <!-- Text Area -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Текст поста</label>
+                        <textarea id="postText" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md p-2 shadow-sm"></textarea>
+                    </div>
+                </div>
+                <!-- Buttons Container -->
+                <div class="flex flex-col items-center space-y-4">
+                    <div id="buttonsContainer" class="w-full">
+                        <!-- Dynamic buttons will be added here -->
+                    </div>
+                    <label for="postDateTime" class="block text-sm font-medium text-gray-700">Дата и время поста</label>
+                    <input type="datetime-local" id="postDateTime" class="mt-1 block w-full border border-gray-300 rounded-md p-2 shadow-sm">
+
+                    <!-- Add Button -->
+                    <button id="addButton" class="w-full px-4 py-2 bg-blue-500 text-white rounded-md">Добавить кнопку в пост</button>
+
+                    <!-- Confirm Button -->
+                    <button id="confirmButton" class="w-full px-4 py-2 bg-green-500 text-white rounded-md">Подтвердить</button>
+                </div>
+                
+                <!-- Preview Section -->
+                <div id="postPreview" class="hidden mt-4">
+                    <h3 class="text-lg font-semibold mb-2">Предпросмотр поста</h3>
+                    <img id="previewImage" src="" alt="Предпросмотр изображения" class="mb-2">
+                    <p id="previewText" class="mb-2"></p>
+                    <div id="previewButtons" class="w-full">
+                        <!-- Dynamic preview buttons will be added here -->
+                    </div>
+                </div>
+    </div>
+
+    <!-- JavaScript для добавления и удаления кнопок, обработки изображения и аккордеонов -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite/dist/flowbite.min.js"></script>
+    <script>
+        //all ids and some classes are importent for this script
+    
+        multiUploadButton = document.getElementById("multi-upload-button");
+        multiUploadInput = document.getElementById("multi-upload-input");
+        imagesContainer = document.getElementById("images-container");
+        multiUploadDisplayText = document.getElementById("multi-upload-text");
+        multiUploadDeleteButton = document.getElementById("multi-upload-delete");
+    
+        multiUploadButton.onclick = function () {
+            multiUploadInput.click(); // this will trigger the click event
+        };
+    
+        multiUploadInput.addEventListener('change', function (event) {
+            let files = multiUploadInput.files;
+            
+            multiUploadDeleteButton = document.getElementById("multi-upload-delete");
+            // Проверяем, что выбранное количество файлов не превышает 10
+            if (files.length > 10) {
+                alert('Вы можете загрузить максимум 10 изображений.');
+                return; // Прерываем выполнение, если выбрано более 10 файлов
+            }
+        
+            // Проверяем, что каждый выбранный файл - изображение
+            let allFilesAreImages = Array.from(files).every(file => file.type.startsWith('image/'));
+            if (!allFilesAreImages) {
+                showAlert('Один или несколько файлов не являются изображениями.',"error")
+               
+                return; // Прерываем выполнение, если найден неизображение
+            }
+        
+            // Если все проверки пройдены, очищаем контейнер изображений и показываем новые
+            imagesContainer.innerHTML = '';
+            imagesContainer.classList.add("w-full", "grid", "gap-4");
+            // the delete button to delete all files
+            multiUploadDeleteButton.classList.add("z-100", "p-2", "my-auto");
+            multiUploadDeleteButton.classList.remove("hidden");
+            Array.from(files).forEach((file) => {
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    let imageDiv = document.createElement('div');
+                    imageDiv.classList.add("h-64", "mb-3", "w-full", "p-3", "rounded-lg", "bg-cover", "bg-center");
+                    imageDiv.style.backgroundImage = `url(${reader.result})`;
+                    imageDiv.style.backgroundSize = 'contain';
+                    imageDiv.style.backgroundPosition = 'center';
+                    imageDiv.style.backgroundRepeat = 'no-repeat';
+                    imagesContainer.appendChild(imageDiv);
+                }
+            });
+        
+            // show the text for the upload button text field
+            multiUploadDisplayText.innerHTML = files.length + ' файлов вырано';
+        });
+        
+    
+        function removeMultiUpload() {
+            imagesContainer.innerHTML = '';
+            imagesContainer.classList.remove("w-full", "grid", "grid-cols-1","sm:grid-cols-2","md:grid-cols-3","lg:grid-cols-4", "gap-4");
+            multiUploadInput.value = '';
+            multiUploadDisplayText.innerHTML = '';
+            multiUploadDeleteButton.classList.add("hidden");
+            multiUploadDeleteButton.classList.remove("z-100", "p-2", "my-auto");
+        }
+    </script>
+    <script>
+        // Функция для вывода всплывающего оповещения
+        function showAlert(message, type) {
+            const alertContainer = document.createElement("div");
+            alertContainer.className = `fixed inset-x-0 bottom-0 px-4 py-2 bg-${type === "error" ? "red" : "green"}-500 text-white font-semibold`;
+            alertContainer.textContent = message;
+            document.body.appendChild(alertContainer);
+
+            // Удаляем оповещение через 3 секунды
+            setTimeout(function () {
+                document.body.removeChild(alertContainer);
+            }, 3000);
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize with two accordions
+            addAccordion("Купить билет");
+            addAccordion("Продать билет");
+            
+            document.getElementById("addButton").addEventListener("click", function () {
+                if (document.querySelectorAll('.accordion').length < 4) {
+                    addAccordion("");
+                }
+            });
+
+            const confirmButton = document.getElementById("confirmButton");
+            const postText = document.getElementById("postText");
+            const postDateTime = document.getElementById("postDateTime");
+            confirmButton.addEventListener("click", function () {
+                // Собираем данные об изображениях
+                const images = [];
+                const imageDivs = document.querySelectorAll("#images-container div");
+                imageDivs.forEach((div, index) => {
+                    images.push({
+                        src: div.style.backgroundImage.replace('url("', '').replace('")', ''),
+                        order: index + 1,
+                    });
+                });
+        
+                // Собираем текст поста
+                const postTextValue = postText.value;
+        
+                // Собираем данные о кнопках
+                const buttons = [];
+                const buttonElements = document.querySelectorAll(".accordion");
+                buttonElements.forEach((accordion, index) => {
+                    const buttonInput = accordion.querySelector("input[type='text']");
+                    const buttonUrlInput = accordion.querySelector("input[type='url']");
+                    const buttonName = buttonInput.value;
+                    const buttonUrl = buttonUrlInput.value;
+                    buttons.push({
+                        name: buttonName,
+                        url: buttonUrl,
+                        order: index + 1,
+                    });
+                });
+        
+                // Получаем выбранную дату и время
+                const selectedDateTime = postDateTime.value;
+        
+                // Проверка текста поста (не более 4080 символов)
+                if (postTextValue.length > 4080) {
+                    // Выводим сообщение об ошибке
+                    showAlert("Текст поста не может быть более 4080 символов.", "error");
+                    return;
+                }
+        
+                // Получаем текущую дату и время
+                const currentDateTime = new Date();
+                const selectedDate = new Date(selectedDateTime);
+        
+                // Проверка времени поста (не раньше текущего времени)
+                if (selectedDate < currentDateTime) {
+                    // Выводим сообщение об ошибке
+                    showAlert("Дата и время поста не могут быть раньше текущего времени.", "error");
+                    return;
+                }
+                
+                // Выводим собранные данные в консоль (вы можете отправить их на сервер или использовать по своему усмотрению)
+                console.log("Изображения:", images);
+                console.log("Текст поста:", postTextValue);
+                console.log("Кнопки:", buttons);
+                console.log("Выбранная дата и время:", selectedDateTime);
+        
+                // Выводим успешное оповещение
+                showAlert("Пост успешно создан.", "success");
+            });
+        });
+
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("buttonsContainer").addEventListener("click", function (event) {
+                // Находим ближайшую кнопку вверх или вниз от места клика
+                let button = event.target.closest("button");
+        
+                // Проверяем, есть ли у кнопки необходимый класс
+                if (button && button.classList.contains("up-element-button")) {
+                    // Получаем родительский элемент аккордеона
+                    let accordion = button.closest(".accordion");
+                    if (accordion.previousElementSibling) {
+                        accordion.parentNode.insertBefore(accordion, accordion.previousElementSibling);
+                    }
+                } else if (button && button.classList.contains("down-element-button")) {
+                    // Получаем родительский элемент аккордеона
+                    let accordion = button.closest(".accordion");
+                    if (accordion.nextElementSibling) {
+                        accordion.nextElementSibling.parentNode.insertBefore(accordion.nextElementSibling, accordion);
+                    }
+                }
+            });
+        });
+        
+        
+        function addAccordion(title) {
+            let container = document.getElementById("buttonsContainer");
+            let accordion = document.createElement("div");
+            accordion.className = "accordion p-4";
+        
+            const arrowUpSvg = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                </svg>`;
+            const arrowDownSvg = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>`;
+           
+            accordion.innerHTML = `
+            <div class="border border-gray-300 rounded-lg overflow-hidden shadow-md">
+                <div class="flex items-center bg-gray-100">
+                    <div class="p-2">
+                        <span class="accordion-toggle text-gray-600 hover:text-gray-800 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="flex-grow p-4 bg-white">
+                        <input type="text" class="form-input rounded-md border-transparent focus:border-transparent focus:ring-0" style="width: -webkit-fill-available;" placeholder="Название кнопки" value="${title}">
+                    </div>
+            
+                    
+                    
+                    <div class="flex-none flex flex-col justify-between p-1 bg-white border-l">
+                        <button class="up-element-button text-gray-600 hover:text-gray-800 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                            </svg>
+                        </button>
+                        
+                        <button class="down-element-button text-gray-600 hover:text-gray-800 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="accordion-content p-4 hidden">
+                    <label class="block text-sm font-medium text-gray-700">Ссылка на сайт</label>
+                    <input type="url" class="form-input mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="https://nloto.ru/">
+                    <button class="mt-4 px-4 py-2 delete-button bg-red-500 hover:bg-red-700 text-white font-bold rounded">
+                        ❌ Удалить кнопку
+                    </button>
+                </div>
+            </div>
+            `
+            
+            container.appendChild(accordion);
+        
+            // Toggle and delete functionality
+            let accordionToggle = accordion.querySelector('.accordion-toggle');
+            let accordionContent = accordion.querySelector('.accordion-content');
+            let deleteButton = accordion.querySelector('.delete-button');
+
+            accordionToggle.addEventListener('click', function() {
+                const isExpanded = accordionContent.classList.toggle('hidden');
+                
+                accordionToggle.innerHTML = isExpanded ? arrowDownSvg : arrowUpSvg;
+            });
+
+            deleteButton.addEventListener('click', function () {
+                container.removeChild(accordion);
+            });
+        }
+    </script>
+</body>
+</html>
