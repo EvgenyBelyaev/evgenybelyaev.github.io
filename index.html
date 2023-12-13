@@ -261,21 +261,21 @@
            
             accordion.innerHTML = `
             <div class="border border-gray-300 rounded-lg overflow-hidden shadow-md">
-                <div class="flex items-center bg-gray-100">
-                    <div class="p-2">
+                <div class="flex items-center">
+                    <div class="p-2 min-w-[5%]">
                         <span class="accordion-toggle text-gray-600 hover:text-gray-800 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </span>
                     </div>
-                    <div class="flex-grow p-4 bg-white">
+                    <div class="flex-grow bg-white max-w-[80%] bg-white">
                         <input type="text" class="form-input rounded-md border-transparent focus:border-transparent focus:ring-0" style="width: -webkit-fill-available;" placeholder="Название кнопки" value="${title}">
                     </div>
             
                     
                     
-                    <div class="flex-none flex flex-col justify-between p-1 bg-white border-l">
+                    <div class="flex-none flex flex-col justify-between bg-white border-l w-100  min-w-[15%]">
                         <button class="up-element-button text-gray-600 hover:text-gray-800 focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
