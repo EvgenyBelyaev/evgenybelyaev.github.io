@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма для создания поста</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Подключение стилей Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+<body>
+    <div class="p-5 h-screen w-full bg-blue-600">
+        <div class=" h-full bg-white overflow-hidden flex flex-col rounded-xl overflow-hidden shadow-xl"  >
+        <!-- navbar -->
+        <div class=" border-b px-5 py-1 flex justify-between items-center">
+            <span>
+                
+            </span>
+            <!-- search -->
+            
+            <!-- profile -->
+            <div class="flex space-x-4 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 stroke-slate-400 " fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <img src="https://source.unsplash.com/random/500x500/?face" class="h-10 w-10 rounded-full" alt="">
+
+            </div>
+
+        </div>
+        <!-- body -->
+        <div class="h-full flex">
+            <!-- slidebar 1 -->
+            <div id="sidebarmenue" class="h-full w-64 border-r pt-10 px-5 ">
+                
+                <div class="">
+                    <p class="text-xs font-medium text-gray-400">ОСНОВНЫЕ</p>
+                    
+                </div>
+                
+                <!-- menu-item -->
+                <div
+                    class="mt-4 py-1.5 text-sm font-medium text-slate-500 hover:text-blue-500 group cursor-pointer flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <a class="text-red-500">Главная</a>
+                </div>
+
+                <p class="text-xs font-medium text-gray-400 mt-8">ПРИЛОЖЕНИЯ</p>
+                
+
+                <div class="mt-4 py-1.5 text-sm font-medium  text-slate-500 hover:text-blue-500 group cursor-pointer flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5   mr-4  stroke-blue-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+
+                    </svg>
+                    <a href="./messages.html">Сообщения</a>
+                </div>
+
+                <div
+                    class="mt-4 py-1.5 text-sm font-medium  text-blue-500 group cursor-pointer flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+
+
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+
+
+                    </svg>
+                    <a href="./users.html" class="">Пользователи</a>
+                </div>
+
+                <div
+                    class="mt-4 py-1.5 text-sm font-medium text-slate-500 hover:text-blue-500 group cursor-pointer flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+
+                    </svg>
+                    <a  class="text-red-500">Модераторы</a>
+                </div>
+
+                <div
+                    class="mt-4 py-1.5 text-sm font-medium text-slate-500 hover:text-blue-500 group cursor-pointer flex items-center">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                    class="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24" 
+                    stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" 
+                        d="M3 3v18h18M3 14l5-5 4 4 8-8"/>
+                    </svg>
+                    
+                    <a class="text-red-500">Статистика</a>
+                </div>
+
+                <div
+                    class="mt-4 py-1.5 text-sm font-medium text-slate-500 hover:text-blue-500 group cursor-pointer flex items-center">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536-9.192 9.192H6v-3.536l9.192-9.192zM16 4l4 4-3.5 3.5-4-4L16 4z"/>
+                    </svg>
+                    <a href="./index.html">Создать пост</a>
+                    
+                </div>
+
+
+            </div>
+            <!-- sidebar 2 -->
+            <div class="h-full w-96 bg-slate-50 border-r flex flex-col">
+                <div class="h-16 border-b px-4 flex items-center justify-center space-x-4">
+                    <input type="text" class="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" placeholder=" Поиск..." />
+                </div>
+                <div class="h-full">
+
+                    <div
+                        class="px-5 py-4   flex items-center   cursor-pointer border-l-4 border-l-transparent hover:bg-slate-100">
+                        <img src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHVzZXJzfGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500"
+                            class="h-12 w-12 border-2 border-white rounded-full" alt="">
+                        <div class="ml-4">
+                            <p x-text="user.name" class="text-md font-semibold text-slate-600 m-0 p-0">Yaroslav Zubkp
+                            </p>
+                            <p class="text-xs text-slate-400 -mt-0.5 font-semibold" x-text="user.email">is is long ipsum
+                                avaliable...</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="px-5 py-4   flex items-center   cursor-pointer border-l-4 border-l-transparent hover:bg-slate-100">
+                        <img src="https://images.unsplash.com/photo-1499887142886-791eca5918cd?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHVzZXJzfGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500 "
+                            class="h-12 w-12 border-2 border-white rounded-full" alt="">
+                        <div class="ml-4">
+                            <p x-text="user.name" class="text-md font-semibold text-slate-600 m-0 p-0"> Alison Alison
+                            </p>
+                            <p class="text-xs text-slate-400 -mt-0.5 font-semibold" x-text="user.email">Hello</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="px-5 py-4   flex items-center bg-white cursor-pointer border-l-4 border-l-blue-500 border-t border-b">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnN8ZW58MHwyfDB8fA%3D%3D&auto=format&fit=crop&w=500 "
+                            class="h-12 w-12 border-2 border-white rounded-full" alt="">
+                        <div class="ml-4">
+                            <p x-text="user.name" class="text-md font-semibold text-slate-600 m-0 p-0"> Mircel Jones</p>
+                            <p class="text-xs text-slate-400 -mt-0.5 font-semibold" x-text="user.email">Ok, Thanks.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="px-5 py-4   flex items-center   cursor-pointer border-l-4 border-l-transparent hover:bg-slate-100">
+                        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnN8ZW58MHwyfDB8fA%3D%3D&auto=format&fit=crop&w=500"
+                            class="h-12 w-12 border-2 border-white rounded-full" alt="">
+                        <div class="ml-4">
+                            <p x-text="user.name" class="text-md font-semibold text-slate-600 m-0 p-0">Uran Poland</p>
+                            <p class="text-xs text-slate-400 -mt-0.5 font-semibold" x-text="user.email">We own hidden
+                                lake..</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="px-5 py-4   flex items-center   cursor-pointer border-l-4 border-l-transparent hover:bg-slate-100">
+                        <img src="https://images.unsplash.com/photo-1628157588553-5eeea00af15c?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHVzZXJzfGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500"
+                            class="h-12 w-12 border-2 border-white rounded-full" alt="">
+                        <div class="ml-4">
+                            <p x-text="user.name" class="text-md font-semibold text-slate-600 m-0 p-0">Yaroslav Zubkp
+                            </p>
+                            <p class="text-xs text-slate-400 -mt-0.5 font-semibold" x-text="user.email">is is long ipsum
+                                avaliable...</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="px-5 py-4   flex items-center   cursor-pointer border-l-4 border-l-transparent hover:bg-slate-100">
+                        <img src="https://images.unsplash.com/photo-1499887142886-791eca5918cd?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHVzZXJzfGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500 "
+                            class="h-12 w-12 border-2 border-white rounded-full" alt="">
+                        <div class="ml-4">
+                            <p x-text="user.name" class="text-md font-semibold text-slate-600 m-0 p-0"> Alison Alison
+                            </p>
+                            <p class="text-xs text-slate-400 -mt-0.5 font-semibold" x-text="user.email">Hello</p>
+                        </div>
+                    </div>
+
+                 
+
+                    <!-- else -->
+
+
+                </div>
+
+
+
+            </div>
+            <div class="w-full h-full flex flex-col">
+                <div class="h-16 border-b flex justify-between items-center w-full px-5 py-2 shadow-sm">
+                    <div class="flex items-center">
+                        <img class="h-10 w-10 overflow-hidden rounded-full"
+                            src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnN8ZW58MHwyfDB8fA%3D%3D&auto=format&fit=crop&w=500"
+                            alt="">
+                        <p class="font-semibold ml-3 text-slate-600">Mircel Jones</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 stroke-slate-400 mr-4 group-hover:stroke-blue-500 ml-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div class="flex items-center space-x-5">
+                        
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 stroke-slate-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                        </svg>
+
+                    </div>
+                </div>
+                <div class="h-full px-10 py-4 flex">
+                    <!-- message container -->
+                    <!-- Left Side: User Information -->
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold mb-4">Информация о пользователе:</h3>
+                        <p>Имя: <span class="text-slate-600">[Имя]</span></p>
+                        <p>Фамилия: <span class="text-slate-600">[Фамилия]</span></p>
+                        <p>Username: <span class="text-slate-600">[Username]</span></p>
+                        <p>Дата первого сообщения в боте: <span class="text-slate-600">[Дата]</span></p>
+                        <p>Подписан: <span class="text-slate-600">[Да/Нет]</span></p>
+                        <p>Telegram ID: <span class="text-slate-600">[ID]</span></p>
+                    </div>
+
+                    <!-- Right Side: Statistics -->
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold mb-4">Статистика:</h3>
+                        <p>Написанных сообщений: <span class="text-slate-600">[Количество]</span></p>
+                        <p>Отправленных постов: <span class="text-slate-600">[Количество]</span></p>
+                        <p>Прочитанный постов: <span class="text-slate-600">[Количество]</span></p>
+                        <p>Последнее сообщение: <span class="text-slate-600">[Текст]</span></p>
+                        <p>Нажал на "Купить билет": <span class="text-slate-600">[Да/Нет]</span></p>
+                        <p>Нажал на "Подарить билет": <span class="text-slate-600">[Да/Нет]</span></p>
+                    </div>
+                    
+                    
+                    
+
+
+                </div>
+                <div class="  w-full  px-5 py-3">
+                    
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+     </div>
+    <script>
+        function alpineInstance() {
+
+            return {
+                users: [
+                    {
+                        id: 1,
+                        name: 'Marcel Jones ',
+                        email: "atuny0@sohu.com",
+                        phone: "+63 791 675 8914",
+                        show: false,
+                        image: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnN8ZW58MHwyfDB8fA%3D%3D&auto=format&fit=crop&w=500",
+                    },
+                    {
+                        id: 2,
+                        name: 'Sheldon Quigley ',
+                        "email": "hbingley1@plala.or.jp",
+                        "phone": "+7 813 117 7139",
+                        show: false,
+                        image: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnN8ZW58MHwyfDB8fA%3D%3D&auto=format&fit=crop&w=500",
+                    },
+                    {
+                        id: 3,
+                        name: 'Leonard Leach ',
+                        "email": "rshawe2@51.la",
+                        "phone": "+63 739 292 7942",
+                        show: true,
+                        image: "https://images.unsplash.com/photo-1584999734482-0361aecad844?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHVzZXJzfGVufDB8MnwwfHw%3D&auto=format&fit=crop&w=500",
+                    },
+
+
+                ]
+
+            }
+
+        }
+    </script>
+</body>
+</html>
