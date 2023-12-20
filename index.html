@@ -222,7 +222,8 @@
                     'dateSelected":selectedDateTime
                 };
                 if (window.Telegram.WebApp) {
-                    Telegram.WebApp.sendData(data_output);
+                    data_send = JSON.stringify(data_output);
+                    Telegram.WebApp.sendData(data_send);
                 }
                 // Выводим успешное оповещение
                 showAlert("Пост успешно создан.", "success");
