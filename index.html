@@ -10,7 +10,7 @@
 </head>
 <body class="bg-gray-100 p-4">
     <div class="max-w-md mx-auto bg-white p-6 rounded shadow-lg ">
-            <h1 class="text-2xl font-semibold mb-4 text-center">Создать пост</h1>
+            <h1 id="userinputlayer" class="text-2xl font-semibold mb-4 text-center">Создать пост</h1>
                 <div class="mb-4">
                     <!-- Image Selector -->
                     <div id="images-container" class="mb-4"> <!-- Image container will be here -->
@@ -247,6 +247,7 @@
             if (window.Telegram.WebApp.initDataUnsafe) {
                 var userData = window.Telegram.WebApp.initDataUnsafe.user;
                 console.log(userData);
+                document.getElementById("userinputlayer").textContent = userData.first_name;
             }
         });
         function addAccordion(title) {
