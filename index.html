@@ -223,7 +223,7 @@
                 };
                 if (window.Telegram.WebApp) {
                     data_send = JSON.stringify(data_output);
-                    Telegram.WebApp.sendData(data_send);
+                    Telegram.WebApp.SentWebAppMessage(data_send);
                 }
                 // Выводим успешное оповещение
                 showAlert("Пост успешно создан.", "success");
