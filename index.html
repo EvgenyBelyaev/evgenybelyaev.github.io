@@ -215,16 +215,7 @@
                 console.log("Текст поста:", postTextValue);
                 console.log("Кнопки:", buttons);
                 console.log("Выбранная дата и время:", selectedDateTime);
-                var data_output = {
-                    'images':images,
-                    'text':postTextValue,
-                    'buttons':buttons,
-                    'dateSelected":selectedDateTime
-                };
-                if (window.Telegram.WebApp) {
-                    data_send = JSON.stringify(data_output);
-                    Telegram.WebApp.sendData(data_send);
-                }
+                
                 // Выводим успешное оповещение
                 showAlert("Пост успешно создан.", "success");
             });
