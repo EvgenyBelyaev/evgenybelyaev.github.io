@@ -243,8 +243,12 @@
                 }
             });
         });
-        
-        
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.Telegram.WebApp.initDataUnsafe) {
+                var userData = window.Telegram.WebApp.initDataUnsafe.user;
+                console.log(userData);
+            }
+        });
         function addAccordion(title) {
             let container = document.getElementById("buttonsContainer");
             let accordion = document.createElement("div");
