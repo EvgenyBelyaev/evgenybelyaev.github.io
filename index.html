@@ -221,9 +221,10 @@
                     'buttons':buttons,
                     'dateSelected':selectedDateTime
                 };
-                if (window.Telegram.WebApp) {
+                let tg = window.Telegram.WebApp;
+                if (tg) {
                     data_send = JSON.stringify(data_output);
-                    Telegram.WebApp.SentWebAppMessage(data_send);
+                    tg.sendData(data_send);
                 }
                 // Выводим успешное оповещение
                 showAlert("Пост успешно создан.", "success");
